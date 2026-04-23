@@ -1198,6 +1198,30 @@
 
     .btn-wa svg { width: 22px; height: 22px; flex-shrink: 0; }
 
+    .btn-email {
+      flex: 1;
+      background: #EA4335;
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 14px 24px;
+      border: none;
+      border-radius: var(--r-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-email:hover { background: #c5221f; transform: translateY(-1px); }
+
+    .btn-email svg { width: 22px; height: 22px; flex-shrink: 0; }
+
     .btn-cancel {
       background: none;
       border: 1px solid var(--border);
@@ -1217,7 +1241,7 @@
       .form-row { grid-template-columns: 1fr; }
       .modal-body { padding: 20px; }
       .modal-footer { padding: 0 20px 20px; flex-direction: column; }
-      .btn-wa, .btn-cancel { width: 100%; }
+      .btn-wa, .btn-email, .btn-cancel { width: 100%; }
     }
 
     /* ── PAGE LOADER ── */
@@ -1971,6 +1995,12 @@
           </svg>
           Send via WhatsApp
         </button>
+        <button class="btn-email" onclick="submitQuoteViaEmail()">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+            <path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+          </svg>
+          Send via Email
+        </button>
         <button class="btn-cancel" onclick="closeQuoteModal()">Cancel</button>
       </div>
     </div>
@@ -2000,7 +2030,7 @@
   </div>
 
   <!-- GMAIL BUTTON -->
-  <a href="mailto:akashedamana@gmail.com" class="gmail-btn" aria-label="Send us an Email">
+  <a href="https://mail.google.com/mail/?view=cm&to=promptpacks@gmail.com" target="_blank" rel="noopener" class="gmail-btn" aria-label="Send us an Email">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
       <path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
     </svg>
@@ -2191,6 +2221,35 @@
 
       const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
       window.open(url, '_blank');
+      closeQuoteModal();
+    }
+
+    function submitQuoteViaEmail() {
+      const name    = document.getElementById('q-name').value.trim();
+      const phone   = document.getElementById('q-phone').value.trim();
+      const product = document.getElementById('q-product').value;
+
+      if (!name) { alert('Please enter your name.'); return; }
+      if (!phone) { alert('Please enter your phone number.'); return; }
+      if (!product) { alert('Please select a product type.'); return; }
+
+      const company = document.getElementById('q-company').value.trim();
+      const qty     = document.getElementById('q-qty').value.trim();
+      const size    = document.getElementById('q-size').value.trim();
+      const notes   = document.getElementById('q-notes').value.trim();
+
+      const subject = `Quote Request – ${product}`;
+      let body = `Hello Prompt Packs,\n\nI'd like to request a quote.\n\n`;
+      body += `Name: ${name}\n`;
+      if (company) body += `Company: ${company}\n`;
+      body += `Phone: ${phone}\n`;
+      body += `Product: ${product}\n`;
+      if (qty)   body += `Quantity: ${qty} units\n`;
+      if (size)  body += `Box size: ${size} cm\n`;
+      if (notes) body += `Requirements: ${notes}\n`;
+
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&to=promptpacks@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.open(gmailUrl, '_blank');
       closeQuoteModal();
     }
   </script>
