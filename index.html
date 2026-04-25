@@ -1614,7 +1614,7 @@
       <div class="hero-visual-corner tr"></div>
       <div class="hero-visual-corner bl"></div>
       <div class="hero-visual-corner br"></div>
-      <img src="Image/Front.png" alt="Prompt Packs custom cardboard boxes"/>
+      <img src="Image/Front.png" alt="Prompt Packs facility"/>
     </div>
   </section>
 
@@ -1786,10 +1786,10 @@
       <a href="#" class="btn-primary" onclick="openQuoteModal(event)">Work with us</a>
     </div>
     <div class="about-visual">
-      <div class="about-img-block"><img src="Image/Front.png" alt="Prompt Packs facility" loading="lazy"/></div>
-      <div class="about-img-block"><img src="Image/Cardboardbox.png" alt="Cardboard box production" loading="lazy"/></div>
-      <div class="about-img-block"><img src="Image/Single_Color.png" alt="Single colour print output" loading="lazy"/></div>
-      <div class="about-img-block"><img src="Image/Multi_Color.png" alt="Multi colour print output" loading="lazy"/></div>
+      <div class="about-img-block"><img src="Image/Front.jpeg" alt="Prompt Packs factory front" loading="lazy"/></div>
+      <div class="about-img-block"><img src="Image/InsideCompany.jpeg" alt="Inside the Prompt Packs facility" loading="lazy"/></div>
+      <div class="about-img-block"><img src="Image/machine.jpeg" alt="Corrugated box production machine" loading="lazy"/></div>
+      <div class="about-img-block"><img src="Image/Team.jpeg" alt="Prompt Packs team" loading="lazy"/></div>
     </div>
   </section>
 
@@ -2104,7 +2104,6 @@
     window.addEventListener('scroll', function() {
       backTop.classList.toggle('show', window.scrollY > 420);
       updateScrollspy();
-      updateWaNearBottom();
     });
 
     backTop.addEventListener('click', function(e) {
@@ -2133,42 +2132,6 @@
       });
     }
 
-    /* ── WHATSAPP EXPAND ── */
-    var waBtn       = document.querySelector('.whatsapp-btn');
-    var waPinned    = false;   // true when near bottom — keeps it expanded
-    var waAutoTimer = null;
-    var waColTimer  = null;
-
-    function expandWa() {
-      waBtn.classList.add('expanded');
-    }
-
-    function collapseWa() {
-      if (!waPinned) waBtn.classList.remove('expanded');
-    }
-
-    function scheduleRandomExpand() {
-      var delay = 9000 + Math.random() * 8000; // 9–17 s
-      waAutoTimer = setTimeout(function() {
-        expandWa();
-        waColTimer = setTimeout(collapseWa, 3200);
-        scheduleRandomExpand();
-      }, delay);
-    }
-
-    function updateWaNearBottom() {
-      var nearBottom = (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 220);
-      if (nearBottom === waPinned) return;
-      waPinned = nearBottom;
-      if (nearBottom) {
-        clearTimeout(waColTimer);
-        expandWa();
-      } else {
-        collapseWa();
-      }
-    }
-
-    scheduleRandomExpand();
 
     function openQuoteModalWithProduct(e, product) {
       openQuoteModal(e);
